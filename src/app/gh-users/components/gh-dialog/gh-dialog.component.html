@@ -1,0 +1,59 @@
+<div class="leiaut">
+    
+    <div class="avatar">
+        <img src="{{user?.avatar_url}}" alt="Imagem de {{username}}">
+    </div>
+    
+    <div mat-dialog-content>
+        <mat-progress-spinner 
+            color="primary"
+            mode="indeterminate"
+            *ngIf=" user == null; else content "
+        ></mat-progress-spinner>
+
+        <ng-template #content>
+            <a [href]="user?.html_url" target="_blank">
+                <h3>{{ user?.name }}</h3>
+            </a>
+        </ng-template>
+        
+        
+    </div>
+    <div class="bio">
+        <p>Biografia: {{user?.bio}}</p>
+    </div>
+    
+    <div class="corpo">
+        <p><mat-icon>room</mat-icon>  {{user?.location}}</p>
+        <p><mat-icon>supervisor_account</mat-icon> {{user?.followers}} seguidores</p>
+        <p><mat-icon>supervisor_account</mat-icon> Seguindo: {{user?.following}} pessoas.</p>
+        <p><mat-icon>account_balance_wallet</mat-icon> Repositórios: {{user?.public_repos}}</p>
+        <p><mat-icon>today</mat-icon> {{user?.created_at | date: 'dd/MM/yyyy'}}</p>
+        
+        <a [href]="user?.html_url + '?tab=repositories'" target="_blank">
+            <h3>Ir para repositorios</h3>
+        </a>
+        <mat-card class="repo" *ngFor="let repos of repos">
+            <p>Dados dos Repositórios:</p>
+                <div class="div"><p>Nome do Repositório: </p>{{repos?.name}}<br></div>
+                <div class="div"><p>Descrição:</p>{{repos?.description}}<br></div>
+                <div class="div"><p>Linguagem:</p>{{repos?.language}}<br></div>
+                <div class="div"><p>Estrelas:</p>{{repos?.stargazers_count}}<br></div>
+                <button 
+                    mat-stroked-button 
+                    color="primary"
+                >
+                    <a [href]="repos?.html_url" target="_blank"
+                    >
+                        Ir para repositório {{repos?.name}}
+                    </a>
+                </button>
+
+            
+        </mat-card>
+    </div>
+
+   
+
+</div>
+
